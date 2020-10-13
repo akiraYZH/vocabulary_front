@@ -40,6 +40,9 @@ class AccountTabs extends Component {
   goToLogin() {
     this.setState({ ...this.state, key: "login" });
   }
+  goToRegister() {
+    this.setState({ ...this.state, key: "register" });
+  }
 
   render() {
     return (
@@ -51,7 +54,7 @@ class AccountTabs extends Component {
           centered={true}
         >
           <TabPane tab="Login" key="login">
-            <LoginForm></LoginForm>
+            <LoginForm goToRegister={this.goToRegister.bind(this)}></LoginForm>
           </TabPane>
           <TabPane tab="Sign up" key="register">
             <SignUpForm goToLogin={this.goToLogin.bind(this)}></SignUpForm>

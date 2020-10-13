@@ -8,22 +8,32 @@ const Container = styled.div`
   #normal_login .login-form {
     max-width: 300px;
   }
-  #normal_login .login-form-forgot {
-    float: right;
+  .ctls {
+    max-width: 320px;
+    margin: 0 auto 10px;
+    .ant-form-item-control-input-content {
+      display: flex;
+      justify-content: space-between;
+    }
+    #normal_login .login-form-forgot {
+      float: right;
+    }
+    #normal_login .ant-col-rtl .login-form-forgot {
+      float: left;
+    }
+    #normal_login .ant-checkbox-wrapper {
+      float: left;
+    }
   }
-  #normal_login .ant-col-rtl .login-form-forgot {
-    float: left;
-  }
-  #normal_login .ant-checkbox-wrapper {
-    float: left;
-  }
+
   #normal_login .login-form-button {
     width: 100%;
+    max-width: 320px;
     margin-bottom: 10px;
   }
 `;
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   // const [count, setCount] = useState(0);
   const onFinish = async (values) => {
     console.log("Received values of form: ", values);
@@ -61,7 +71,7 @@ const LoginForm = () => {
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item>
+        <Form.Item className="ctls">
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
@@ -79,7 +89,12 @@ const LoginForm = () => {
           >
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          <div>
+            Or{" "}
+            <a href="javascript:void(0);" onClick={props.goToRegister}>
+              register now!
+            </a>
+          </div>
         </Form.Item>
       </Form>
     </Container>

@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import _axios from "../utils/_axios";
-import {
-  Form,
-  Input,
-  Tooltip,
-  Select,
-  Row,
-  Col,
-  Button,
-  Modal,
-  Result,
-} from "antd";
+import { Form, Input, Tooltip, Row, Col, Button, Modal, Result } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
+import styled from "styled-components";
 
-const { Option } = Select;
+// const { Option } = Select;
+const Container = styled.div`
+  .ant-form-item-extra {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .registerRow {
+    .ant-form-item-control-input-content {
+      display: flex;
+      justify-content: flex-start;
+    }
+  }
+`;
 
 const formItemLayout = {
   labelCol: {
@@ -103,7 +106,7 @@ const RegistrationForm = (props) => {
   }, []);
 
   return (
-    <>
+    <Container>
       <Form
         {...formItemLayout}
         form={form}
@@ -251,7 +254,7 @@ const RegistrationForm = (props) => {
           </Row>
         </Form.Item>
 
-        <Form.Item {...tailFormItemLayout}>
+        <Form.Item {...tailFormItemLayout} className="registerRow">
           <Button type="primary" htmlType="submit">
             Register
           </Button>
@@ -269,7 +272,7 @@ const RegistrationForm = (props) => {
           subTitle="Click the button below and go to login panel."
         />
       </Modal>
-    </>
+    </Container>
   );
 };
 
