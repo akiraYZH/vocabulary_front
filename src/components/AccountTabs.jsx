@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Tabs } from "antd";
 import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
 const { TabPane } = Tabs;
 
 const Section = styled.section`
@@ -28,18 +29,24 @@ const Section = styled.section`
 class AccountTabs extends Component {
   constructor(...args) {
     super(...args);
+    this.state = {
+      key: "login",
+    };
   }
 
   callback(key) {
-    console.log(key);
+    this.setState({ ...this.state, key: key });
+  }
+  goToLogin() {
+    this.setState({ ...this.state, key: "login" });
   }
 
   render() {
     return (
       <Section>
         <Tabs
-          defaultActiveKey="login"
-          onChange={this.callback}
+          activeKey={this.state.key}
+          onChange={this.callback.bind(this)}
           className="tabs"
           centered={true}
         >
@@ -47,7 +54,7 @@ class AccountTabs extends Component {
             <LoginForm></LoginForm>
           </TabPane>
           <TabPane tab="Sign up" key="register">
-            Content of Tab Pane 2
+            <SignUpForm goToLogin={this.goToLogin.bind(this)}></SignUpForm>
           </TabPane>
         </Tabs>
       </Section>
