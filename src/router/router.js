@@ -24,6 +24,12 @@ const Routes = [
     exact: true,
     component: lazy(() => import("../pages/Account.jsx")),
     meta: { title: "Account", nav: true },
+    routes: [
+      {
+        path: "/account/forget-password",
+        component: lazy(() => import("../pages/ForgetPassword.jsx")),
+      },
+    ],
   },
 ];
 

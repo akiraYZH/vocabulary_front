@@ -46,7 +46,6 @@ const RegistrationForm = (props) => {
   const [verify, setVerify] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  //   console.log(form);
   const closeModal = (e) => {
     setShowModal(false);
     form.resetFields();

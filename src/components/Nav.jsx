@@ -321,7 +321,6 @@ class Nav extends React.Component {
         mode: "horizontal",
       }
     ) {
-      console.log(params, 123);
       if (params.isFirstLevel) {
         return (
           <Menu onClick={this.onClick} mode={params.mode} className="navBox">

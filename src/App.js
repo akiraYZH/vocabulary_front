@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
-import { Link } from "react-router-dom";
-import { matchRoutes, renderRoutes } from "react-router-config";
+import { withRouter } from "react-router-dom";
+import _renderRoutes from "./utils/_renderRoutes"; // 生成所有路由
+import navFilter from "./utils/navFilter"; //生成导航栏需要的路由
 import routes from "./router/router";
 import Nav from "./components/Nav";
 import "./App.scss";
@@ -22,12 +23,12 @@ function App() {
         navActiveTxtColor="white"
         sideNavBgColor="rgb(37, 37, 37)"
         sideNavTxtColor="white"
-        routes={routes}
+        routes={navFilter(routes)}
       ></Nav>
       {/* routes */}
-      <Suspense fallback={<div>loading</div>}>{renderRoutes(routes)}</Suspense>
+      <Suspense fallback={<div>loading</div>}>{_renderRoutes(routes)}</Suspense>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);

@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { withRouter } from "react-router-dom";
 import _axios from "../utils/_axios";
 import styled from "styled-components";
 
@@ -50,7 +51,6 @@ const LoginForm = (props) => {
         className="login-form"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        className="form"
       >
         <Form.Item
           name="email"
@@ -76,7 +76,17 @@ const LoginForm = (props) => {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          <a className="login-form-forgot" href="">
+          <a
+            className="login-form-forgot"
+            href=""
+            // 跳转到忘记密码页面
+            onClick={(e) => {
+              e.preventDefault();
+              props.history.push({
+                pathname: "/account/forget-password",
+              });
+            }}
+          >
             Forgot password
           </a>
         </Form.Item>
@@ -91,7 +101,13 @@ const LoginForm = (props) => {
           </Button>
           <div>
             Or{" "}
-            <a href="javascript:void(0);" onClick={props.goToRegister}>
+            <a
+              href=""
+              onClick={(e) => {
+                e.preventDefault();
+                props.goToRegister();
+              }}
+            >
               register now!
             </a>
           </div>
@@ -100,4 +116,4 @@ const LoginForm = (props) => {
     </Container>
   );
 };
-export default LoginForm;
+export default withRouter(LoginForm);
