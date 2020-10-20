@@ -44,6 +44,12 @@ class AccountTabs extends Component {
     this.setState({ ...this.state, key: "register" });
   }
 
+  //prevent memory leak
+  componentWillUnmount = () => {
+    this.setState = (state, callback) => {
+      return;
+    };
+  };
   render() {
     return (
       <Section>

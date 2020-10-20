@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "GeosansLight";
+  src: url(./fonts/GeosansLight.ttf),
+    url(./fonts/GeosansLight.ttf) format("svg");
+  font-size: larger;
+}
+
+@font-face {
+  font-family: "couture-bld";
+  src: url(./fonts/couture-bld.otf), url(./fonts/couture-bld.otf) format("svg");
+  font-size: larger;
+}
 body {
   background: linear-gradient(
     45deg,
@@ -9,4 +21,5 @@ body {
     #fff 0
   );
   background-size: 5px 5px;
+  font-family: "GeosansLight";
 }

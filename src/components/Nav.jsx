@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
 // antd
-import { Menu, message, Drawer } from "antd";
+import { Menu, Drawer } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 const SubMenu = Menu.SubMenu;
@@ -10,6 +10,7 @@ const SubMenu = Menu.SubMenu;
 const $bgColor = "rgb(37, 37, 37)";
 const $bgColorActive = "rgb(113, 241, 243)";
 const $txtColor = "#fff";
+const $fontFamily = "";
 
 // style for body
 const body = document.querySelector("body");
@@ -24,6 +25,8 @@ const StyledBox = styled.div`
   position: fixed;
   top: 0px;
   width: 100%;
+  font-family: ${$fontFamily};
+  z-index: 9;
 
   .nav {
     position: relative;
@@ -40,10 +43,17 @@ const StyledBox = styled.div`
 
     .logo {
       height: 100%;
-      max-width: 200px;
-      width: 200px;
+      max-width: 100px;
+      width: 100px;
       margin-right: 10vw;
       line-height: 50px;
+      .logoImg {
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+      }
     }
     .navBox {
       display: flex;
@@ -201,17 +211,22 @@ class Nav extends React.Component {
         ? this.props.sideNavTxtColor
         : "",
       routes: this.props.routes ? this.props.routes : [],
+      fontFamily: this.props.fontFamily ? this.props.fontFamily : "",
+      logo: this.props.logo,
       firstRender: true,
     };
-    console.log(this.state.navBgColor);
+    console.log(this.state.logo);
   }
-
-  componentDidMount() {}
+  //prevent memory leak
+  componentWillUnmount = () => {
+    this.setState = (state, callback) => {
+      return;
+    };
+  };
 
   //judge if it belongs to current path
   isThisRoute(targetPath) {
     if (targetPath === "/") {
-      console.log(this.props.location);
       if (this.props.location.pathname === targetPath) {
         return true;
       } else {
@@ -223,7 +238,7 @@ class Nav extends React.Component {
   }
 
   onClick({ key }) {
-    message.info(`Click on item ${key}`);
+    this.closeDrawer();
   }
 
   showDrawer() {
@@ -296,9 +311,14 @@ class Nav extends React.Component {
           closable={false}
           onClose={this.closeDrawer.bind(this)}
           visible={this.state.drawerVisible}
-          bodyStyle={{ padding: 0 }}
+          bodyStyle={{
+            padding: 0,
+            fontFamily: this.state.fontFamily,
+          }}
         >
-          <StyledSideNav>
+          <StyledSideNav
+            style={{ padding: "20px 0 0", boxSizing: "border-box" }}
+          >
             {recursiveSubMenu.bind(this, {
               routes: this.state.routes,
               isFirstLevel: true,
@@ -323,7 +343,11 @@ class Nav extends React.Component {
     ) {
       if (params.isFirstLevel) {
         return (
-          <Menu onClick={this.onClick} mode={params.mode} className="navBox">
+          <Menu
+            onClick={this.onClick.bind(this)}
+            mode={params.mode}
+            className="navBox"
+          >
             {params.routes.map((route) => {
               if (!route.routes) {
                 return (
@@ -439,9 +463,11 @@ class Nav extends React.Component {
     }
 
     return (
-      <StyledBox component="div">
+      <StyledBox component="div" style={{ fontFamily: this.state.fontFamily }}>
         <div className="nav" style={{ backgroundColor: this.state.navBgColor }}>
-          <div className="logo">logo</div>
+          <div className="logo">
+            <img src={this.state.logo} className="logoImg" />
+          </div>
           {recursiveSubMenu.bind(this, {
             routes: this.state.routes,
             isFirstLevel: true,

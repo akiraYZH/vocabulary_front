@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux"; //connect链接redux
+import { updateUserInfo } from "../redux/actions";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { withRouter } from "react-router-dom";
@@ -37,11 +39,11 @@ const Container = styled.div`
 const LoginForm = (props) => {
   // const [count, setCount] = useState(0);
   const onFinish = async (values) => {
-    console.log("Received values of form: ", values);
     const res = await _axios
       .post("/api/users/login", values)
       .then((data) => data.data);
-    console.log(res);
+
+    props.updateUserInfo(res.data);
   };
 
   return (
@@ -116,4 +118,15 @@ const LoginForm = (props) => {
     </Container>
   );
 };
-export default withRouter(LoginForm);
+
+// connect两个参数，第一个函数用于合并东西, 第二个json包装action
+export default connect(
+  (state, props) => {
+    // 合并
+    return Object.assign({}, props, state);
+  },
+  {
+    //放actions
+    updateUserInfo,
+  }
+)(withRouter(LoginForm));

@@ -11,13 +11,6 @@ const Routes = [
     path: "/about",
     component: lazy(() => import("../pages/About.jsx")),
     meta: { title: "About", nav: true },
-    routes: [
-      {
-        path: "/about/1",
-        component: lazy(() => import("../pages/Account.jsx")),
-        meta: { title: "1", nav: true },
-      },
-    ],
   },
   {
     path: "/account",

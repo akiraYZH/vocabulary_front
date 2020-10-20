@@ -1,5 +1,9 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { updateUserInfo } from "./redux/actions";
+import { message } from "antd";
+import _axios from "./utils/_axios";
 import _renderRoutes from "./utils/_renderRoutes"; // 生成所有路由
 import navFilter from "./utils/navFilter"; //生成导航栏需要的路由
 import routes from "./router/router";
@@ -8,7 +12,21 @@ import "./App.scss";
 import "./assets/reset.scss";
 import "./assets/index.scss";
 
-function App() {
+function App(props) {
+  const loginToken = async () => {
+    const res = await _axios
+      .post("api/users/login-token")
+      .then((data) => data.data);
+
+    if (res.code === 1) {
+      props.updateUserInfo(res.data);
+    } else if (res.code === -1) {
+      message.error("验证信息已过期，请重新登陆！");
+    }
+  };
+  useEffect(() => {
+    loginToken();
+  }, []);
   return (
     <div className="App">
       <Nav
@@ -23,12 +41,16 @@ function App() {
         navActiveTxtColor="white"
         sideNavBgColor="rgb(37, 37, 37)"
         sideNavTxtColor="white"
+        fontFamily="couture-bld"
         routes={navFilter(routes)}
+        logo={require("./assets/img/Notion_app_logo.png")}
       ></Nav>
       {/* routes */}
       <Suspense fallback={<div>loading</div>}>{_renderRoutes(routes)}</Suspense>
     </div>
   );
 }
-
-export default withRouter(App);
+// connect两个参数，第一个函数用于合并东西, 第二个json包装action
+export default connect((state, props) => Object.assign({}, props, state), {
+  updateUserInfo,
+})(withRouter(App));
