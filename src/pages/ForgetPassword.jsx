@@ -1,5 +1,5 @@
-import React, { createRef } from "react";
-import { Steps, Button, message } from "antd";
+import React from "react";
+import { Steps } from "antd";
 import { withRouter } from "react-router-dom";
 import ForgetPasswordStep1 from "../components/ForgetPasswordStep1";
 import ForgetPasswordStep2 from "../components/ForgetPasswordStep2";
@@ -95,4 +95,5 @@ class ForgetPassword extends React.Component {
     );
   }
 }
+
 export default withRouter(ForgetPassword);

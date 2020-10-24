@@ -3,22 +3,23 @@ import {
   UPDATE_USER_INFO,
   CLEAR_USER_INFO,
   UPDATE_TASK,
-  ADD_LEARNED,
-  COMPLETE_TASK,
+  UPDATE_REVIEW,
+  getUserInfo,
+  getWords,
 } from "./actions";
 import reduxDevTool from "../utils/reduxDevTool";
-import _axios from "../utils/_axios";
 
-// 用户登陆信息
+// 用户登陆信息reducer
 function userReducer(
   state = {
     userInfo: null,
+    getUserInfo: getUserInfo,
   },
   action
 ) {
   switch (action.type) {
     case UPDATE_USER_INFO:
-      // console.log(action, "action");
+      console.log(action);
       return {
         ...state,
         userInfo: action.value,
@@ -33,13 +34,12 @@ function userReducer(
       return state;
   }
 }
-// 记单词进程
+// 记单词进程reducer
 function wordsReducer(
   state = {
-    learned_arr: [],
-    not_learned_arr: [],
-    task_completed: 0,
+    review_arr: [],
     task_today: [],
+    getWords: getWords,
   },
   action
 ) {
@@ -48,20 +48,12 @@ function wordsReducer(
       console.log(action, "action");
       return {
         ...state,
-        task: action.value,
+        task_today: action.value,
       };
-    case ADD_LEARNED:
-      state.learned_arr.push(action.value);
-      state.not_learned_arr = state.not_learned_arr.filter((word) => {
-        return word.id === action.value.id ? false : true;
-      });
+    case UPDATE_REVIEW:
       return {
         ...state,
-      };
-    case COMPLETE_TASK:
-      return {
-        ...state,
-        task_complete: 1,
+        review_arr: action.value,
       };
     default:
       return state;

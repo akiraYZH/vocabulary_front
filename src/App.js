@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateUserInfo } from "./redux/actions";
+import { updateUserInfo, clearUserInfo } from "./redux/actions";
 import { message } from "antd";
 import _axios from "./utils/_axios";
 import _renderRoutes from "./utils/_renderRoutes"; // 生成所有路由
@@ -14,20 +14,21 @@ import "./assets/index.scss";
 
 function App(props) {
   const loginToken = async () => {
-    const res = await _axios
-      .post("api/users/login-token")
-      .then((data) => data.data);
+    const res = await props.user.getUserInfo();
 
     if (res.code === 1) {
       props.updateUserInfo(res.data);
     } else if (res.code === -1) {
+      props.clearUserInfo();
       message.error("验证信息已过期，请重新登陆！");
+      props.history.push("/account");
     }
   };
 
   useEffect(() => {
     loginToken();
   }, []);
+
   return (
     <div className="App">
       <Nav
@@ -54,4 +55,5 @@ function App(props) {
 // connect两个参数，第一个函数用于合并东西, 第二个json包装action
 export default connect((state, props) => Object.assign({}, props, state), {
   updateUserInfo,
+  clearUserInfo,
 })(withRouter(App));

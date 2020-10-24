@@ -24,6 +24,11 @@ const Routes = [
       },
     ],
   },
+  {
+    path: "/study",
+    exact: true,
+    component: lazy(() => import("../pages/Study.jsx")),
+  },
 ];
 
 export default Routes;
