@@ -12,9 +12,10 @@ const Container = styled.div`
 const Account = (props) => {
   const userInfo = <UserInfo />;
   const accountTabs = <AccountTabs />;
+  console.log(props);
   return (
     <Container className="animate__animated animate__fadeIn">
-      {props.userInfo ? userInfo : accountTabs}
+      {props.user.userInfo ? userInfo : accountTabs}
     </Container>
   );
 };

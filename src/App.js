@@ -24,6 +24,7 @@ function App(props) {
       message.error("验证信息已过期，请重新登陆！");
     }
   };
+
   useEffect(() => {
     loginToken();
   }, []);

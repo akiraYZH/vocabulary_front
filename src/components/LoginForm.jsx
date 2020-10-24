@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux"; //connect链接redux
 import { updateUserInfo } from "../redux/actions";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { withRouter } from "react-router-dom";
 import _axios from "../utils/_axios";
@@ -42,8 +42,13 @@ const LoginForm = (props) => {
     const res = await _axios
       .post("/api/users/login", values)
       .then((data) => data.data);
-
-    props.updateUserInfo(res.data);
+    if (res.code === 1) {
+      message.success("成功登陆");
+      props.updateUserInfo(res.data);
+    } else {
+      message.error(res.msg);
+    }
+    console.log(res);
   };
 
   return (

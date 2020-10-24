@@ -38,22 +38,37 @@ const UserInfo = (props) => {
   };
 
   const selectBookBtn = (
-    <Button type="primary" className="logoutBtn" onClick={logout}>
+    <Button type="primary" className="Btn" onClick={logout}>
       Log out
     </Button>
   );
 
   return (
-    <Container className="animate__animated animate__fadeInUp">
+    <Container className="animate__animated animate__fadeIn">
       <h2>
         Hello, &nbsp;
-        <span style={{ color: "#22DDB8" }}>{props.userInfo?.nickname}!</span>
+        <span style={{ color: "#22DDB8" }}>
+          {props.user.userInfo?.nickname}
+        </span>
+        !
       </h2>
-      <h3>账号:&nbsp;{props.userInfo?.email}</h3>
+      <h3>账号:&nbsp;{props.user.userInfo?.email}</h3>
       <div>
-        {props.userInfo &&
-          (props.userInfo?.book ? props.userInfo?.book.title : selectBookBtn)}
+        {props.user.userInfo &&
+          (props.user.userInfo?.book ? (
+            <span>
+              单词书:{" "}
+              <span style={{ color: "#22DDB8" }}>
+                {props.user.userInfo?.book.title}
+              </span>
+            </span>
+          ) : (
+            <span>还没选择单词书</span>
+          ))}
       </div>
+      <Button type="primary" className="logoutBtn" onClick={logout}>
+        Log out
+      </Button>
     </Container>
   );
 };

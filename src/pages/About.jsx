@@ -1,7 +1,4 @@
 import React from "react";
-import { connect } from "react-redux"; //connect链接redux
-import { clearUserInfo } from "../redux/actions";
-import { message, Button, Divider } from "antd";
 import styled from "styled-components";
 import CubeAnimation from "../components/CubeAnimation";
 
