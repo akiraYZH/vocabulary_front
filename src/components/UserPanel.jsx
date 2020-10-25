@@ -59,6 +59,10 @@ const Container = styled.div`
 `;
 
 function UserPanel(props) {
+  console.log(
+    props.user.userInfo.learned_arr.length,
+    props.user.userInfo.book.count
+  );
   return (
     <Container>
       <div>
@@ -73,14 +77,15 @@ function UserPanel(props) {
             "100%": "#7cc5e2",
           }}
           percent={parseInt(
-            props.user.userInfo.learned_arr.length /
-              props.user.userInfo.not_learned_arr.length
+            (props.user.userInfo.learned_arr.length /
+              props.user.userInfo.book.count) *
+              100
           )}
           className="progress"
         />
         <div className="statistic">
           {props.user.userInfo.learned_arr.length}/
-          {props.user.userInfo.not_learned_arr.length}
+          {props.user.userInfo.book.count}
         </div>
         <div className="frame">
           <div className="col">
@@ -96,9 +101,9 @@ function UserPanel(props) {
         </div>
       </div>
       <div className="buttonSet">
-        <div className="">
+        {/* <div className="">
           <Button className="btn">复习</Button>
-        </div>
+        </div> */}
         <div className="col">
           <Button className="btn" onClick={() => props.history.push("/study")}>
             开始记单词

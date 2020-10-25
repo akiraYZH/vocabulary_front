@@ -37,12 +37,6 @@ const UserInfo = (props) => {
     message.success("Successfully logout!");
   };
 
-  const selectBookBtn = (
-    <Button type="primary" className="Btn" onClick={logout}>
-      Log out
-    </Button>
-  );
-
   return (
     <Container className="animate__animated animate__fadeIn">
       <h2>

@@ -37,7 +37,6 @@ const Container = styled.div`
 `;
 
 const LoginForm = (props) => {
-  // const [count, setCount] = useState(0);
   const onFinish = async (values) => {
     const res = await _axios
       .post("/api/users/login", values)

@@ -5,7 +5,7 @@ import {
   UPDATE_TASK,
   UPDATE_REVIEW,
   getUserInfo,
-  getWords,
+  getExam,
 } from "./actions";
 import reduxDevTool from "../utils/reduxDevTool";
 
@@ -19,7 +19,6 @@ function userReducer(
 ) {
   switch (action.type) {
     case UPDATE_USER_INFO:
-      console.log(action);
       return {
         ...state,
         userInfo: action.value,
@@ -39,13 +38,12 @@ function wordsReducer(
   state = {
     review_arr: [],
     task_today: [],
-    getWords: getWords,
+    getExam: getExam,
   },
   action
 ) {
   switch (action.type) {
     case UPDATE_TASK:
-      console.log(action, "action");
       return {
         ...state,
         task_today: action.value,

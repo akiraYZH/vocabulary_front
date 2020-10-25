@@ -30,10 +30,10 @@ export function updateReview(value) {
   return { type: UPDATE_REVIEW, value };
 }
 
-//获得用户信息
-export async function getWords(id_arr) {
+//获得测试
+export async function getExam(id_arr) {
   const res = await _axios
-    .post("api/words/get-words", { id_arr })
+    .post("api/users/get-exam", { id_arr })
     .then((data) => data.data);
   return res;
 }
