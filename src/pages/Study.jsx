@@ -49,7 +49,6 @@ function Study(props) {
 
   // 验证是否在线,
   const init = async () => {
-    console.log("init");
     const res = await props.user.getUserInfo();
 
     //成功登陆
@@ -72,25 +71,24 @@ function Study(props) {
       }
       //查看session中是否存在复习单词
       if (sessionStorage.getItem("review")) {
-        console.log(3);
         props.updateReview(JSON.parse(sessionStorage.getItem("review")));
       } else {
-        console.log(4);
         //   已学习单词
         const review_res = await props.words.getExam(res.data.learned_arr);
 
+        let review_arr = [];
         if (review_res.code === 1) {
           //保存到session
           sessionStorage.setItem("review", JSON.stringify(review_res.data));
           //   复习单词存到redux, 开始学习
-          let review_arr = null;
+
           if (review_res.data.length > 10) {
             review_arr = getRandomArrayElements(review_res.data, 10);
           } else {
             review_arr = review_res.data;
           }
-          props.updateReview(review_arr);
         }
+        props.updateReview(review_arr);
       }
     } else if (res.code === -1) {
       props.clearUserInfo();
@@ -100,13 +98,15 @@ function Study(props) {
   };
 
   const next = () => {
-    console.log(props.words.review_arr, 999);
     if (index < props.words.task_today.length) {
-      console.log(props.words.review_arr, 999);
-      props.updateReview([
-        ...props.words.review_arr,
-        props.words.task_today[index],
-      ]);
+      if (props.words.review_arr) {
+        props.updateReview([
+          ...props.words.review_arr,
+          props.words.task_today[index],
+        ]);
+      } else {
+        props.updateReview([props.words.task_today[index]]);
+      }
 
       setIndex(index + 1);
     } else if (reviewIndex < props.words.review_arr.length - 1) {
@@ -174,7 +174,6 @@ function Study(props) {
   useEffect(() => {
     //保存到session
     if (sessionStorage.getItem("review")) {
-      console.log(1, sessionStorage.getItem("review"));
       sessionStorage.setItem("review", JSON.stringify(props.words.review_arr));
     }
   }, [props.words.review_arr]);
@@ -182,7 +181,7 @@ function Study(props) {
   const questionWord = () => {
     if (index < props.words.task_today.length) {
       return props.words.task_today[index];
-    } else if (reviewIndex < props.words.review_arr.length) {
+    } else if (reviewIndex < props.words.review_arr?.length) {
       return props.words.review_arr[reviewIndex];
     } else {
       return;
