@@ -1,7 +1,7 @@
 import React from "react";
 import { List, Typography } from "antd";
 import styled from "styled-components";
-import _axios from "../utils/_axios";
+// import _axios from "../utils/_axios";
 
 const Container = styled.div``;
 

@@ -58,7 +58,7 @@ const RegistrationForm = (props) => {
       .post("api/users/add", values)
       .then((data) => data.data);
     console.log(res);
-    if (res.code == 1) {
+    if (res.code === 1) {
       setShowModal(true);
     }
   };
@@ -76,7 +76,7 @@ const RegistrationForm = (props) => {
       .get("api/verify_code")
       .then((data) => data.data);
 
-    return answer.toLowerCase() == input ? true : false;
+    return answer.toLowerCase() === input ? true : false;
   };
 
   //验证email
@@ -120,7 +120,7 @@ const RegistrationForm = (props) => {
             ({ getFieldValue }) => ({
               async validator(rule, value) {
                 const res = await checkEmail(value);
-                if (!value || res.code == 1) {
+                if (!value || res.code === 1) {
                   return Promise.resolve();
                 }
                 return Promise.reject("This email has been registered.");
@@ -202,7 +202,7 @@ const RegistrationForm = (props) => {
             ({ getFieldValue }) => ({
               async validator(rule, value) {
                 const res = await checkNickname(value);
-                if (!value || res.code == 1) {
+                if (!value || res.code === 1) {
                   return Promise.resolve();
                 }
                 return Promise.reject("This nickname has been used.");

@@ -69,6 +69,7 @@ function Study(props) {
           props.updateTask(task_res.data);
         }
       }
+
       //查看session中是否存在复习单词
       if (sessionStorage.getItem("review")) {
         props.updateReview(JSON.parse(sessionStorage.getItem("review")));
@@ -76,8 +77,9 @@ function Study(props) {
         //   已学习单词
         const review_res = await props.words.getExam(res.data.learned_arr);
 
-        let review_arr = [];
         if (review_res.code === 1) {
+          let review_arr = [];
+
           //保存到session
           sessionStorage.setItem("review", JSON.stringify(review_res.data));
           //   复习单词存到redux, 开始学习
@@ -87,8 +89,9 @@ function Study(props) {
           } else {
             review_arr = review_res.data;
           }
+
+          props.updateReview(review_arr);
         }
-        props.updateReview(review_arr);
       }
     } else if (res.code === -1) {
       props.clearUserInfo();
@@ -97,7 +100,7 @@ function Study(props) {
     }
   };
 
-  const next = () => {
+  let next = () => {
     if (index < props.words.task_today.length) {
       if (props.words.review_arr) {
         props.updateReview([
@@ -155,7 +158,7 @@ function Study(props) {
   };
 
   useEffect(() => {
-    props.updateReview(JSON.parse(sessionStorage.getItem("review")));
+    // props.updateReview(JSON.parse(sessionStorage.getItem("review")));
     init();
     return () => {
       sessionStorage.clear();
@@ -166,16 +169,16 @@ function Study(props) {
 
   useEffect(() => {
     //保存到session
-
     sessionStorage.setItem("index", index);
     sessionStorage.setItem("reviewIndex", reviewIndex);
   }, [index, reviewIndex]);
 
   useEffect(() => {
     //保存到session
-    if (sessionStorage.getItem("review")) {
+    if (sessionStorage.getItem("review") && props.words.review_arr.length) {
       sessionStorage.setItem("review", JSON.stringify(props.words.review_arr));
     }
+    // sessionStorage.setItem("review", JSON.stringify(props.words.review_arr));
   }, [props.words.review_arr]);
 
   const questionWord = () => {

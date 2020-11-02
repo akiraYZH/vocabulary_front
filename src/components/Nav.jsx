@@ -296,7 +296,8 @@ class Nav extends React.Component {
         StyledSideNav.componentStyle.rules.push(`min-height:auto;`);
       }
       //first render finished
-      this.state.firstRender = false;
+      // this.state.firstRender = false;
+      this.setState({ ...this.state, firstRender: false });
     }
 
     // side nav body *************************************************************************************

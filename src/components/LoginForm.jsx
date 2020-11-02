@@ -84,7 +84,7 @@ const LoginForm = (props) => {
 
           <a
             className="login-form-forgot"
-            href=""
+            href="#"
             // 跳转到忘记密码页面
             onClick={(e) => {
               e.preventDefault();
@@ -108,7 +108,7 @@ const LoginForm = (props) => {
           <div>
             Or{" "}
             <a
-              href=""
+              href="#"
               onClick={(e) => {
                 e.preventDefault();
                 props.goToRegister();

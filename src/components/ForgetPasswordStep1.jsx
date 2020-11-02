@@ -1,10 +1,10 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import _axios from "../utils/_axios";
 
 const forgetFormStep1 = React.forwardRef((props, ref) => {
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
   const onFinish = async (values) => {
     const res = await _axios
       .get("/api/forget-verify?email=" + values.email)

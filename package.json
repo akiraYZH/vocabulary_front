@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "animate.css": "^4.1.1",
     "axios": "^0.20.0",
+    "cross-env": "^7.0.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-redux": "^7.2.1",
@@ -18,7 +19,8 @@
     "redux": "^4.0.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env NODE_ENV=production react-scripts start",
+    "dev": "cross-env NODE_ENV=development react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

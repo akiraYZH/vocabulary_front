@@ -33,12 +33,6 @@ const layout = {
     span: 16,
   },
 };
-const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
-};
 
 const SelectBook = (props) => {
   const [form] = Form.useForm();

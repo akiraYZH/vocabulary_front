@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import ForgetPasswordStep1 from "../components/ForgetPasswordStep1";
 import ForgetPasswordStep2 from "../components/ForgetPasswordStep2";
 import ForgetPasswordStep3 from "../components/ForgetPasswordStep3";
-import _axios from "../utils/_axios";
+// import _axios from "../utils/_axios";
 import styled from "styled-components";
 
 const Container = styled.div`

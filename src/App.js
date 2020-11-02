@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateUserInfo, clearUserInfo } from "./redux/actions";
 import { message } from "antd";
-import _axios from "./utils/_axios";
+// import _axios from "./utils/_axios";
 import _renderRoutes from "./utils/_renderRoutes"; // 生成所有路由
 import navFilter from "./utils/navFilter"; //生成导航栏需要的路由
 import routes from "./router/router";
@@ -15,7 +15,7 @@ import "./assets/index.scss";
 function App(props) {
   const loginToken = async () => {
     const res = await props.user.getUserInfo();
-
+    console.log(process.env);
     if (res.code === 1) {
       props.updateUserInfo(res.data);
     } else if (res.code === -1) {

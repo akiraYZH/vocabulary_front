@@ -9,6 +9,7 @@ const navFilter = (routes) => {
       }
       return route;
     }
+    return;
   });
 };
 

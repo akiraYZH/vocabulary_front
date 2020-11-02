@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux"; //connect链接redux
-import { clearUserInfo } from "../redux/actions";
-import { message, Button, Image } from "antd";
 import { CloseCircleFilled, CheckCircleFilled } from "@ant-design/icons";
 import styled from "styled-components";
 
@@ -107,19 +105,25 @@ const Container = styled.div`
 
 const ImgQuestion = (props) => {
   //正确答案的index下标
-  const [answerIndex] = useState(Math.floor(Math.random() * 4));
+  const [answerIndex, setAnswerIndex] = useState(Math.floor(Math.random() * 4));
   const [options, setOptions] = useState([]);
   const optionsRef = useRef({});
   let timers = [];
 
   //生成选项
-  const generateOptions = (answerIndex) => {
+  const generateOptions = () => {
+    // 随机生成答案下标
+    setAnswerIndex(Math.floor(Math.random() * 4));
     let arr = [];
     //答案
 
     const answer = (
       <div className="option" onClick={() => judge(props.questionWord?.id)}>
-        <img src={props.questionWord?.image} key={props.questionWord?.id}></img>
+        <img
+          src={props.questionWord?.image}
+          key={props.questionWord?.id}
+          alt=""
+        ></img>
         <span className="optionText">
           {props.questionWord?.primary_explaination}
         </span>
@@ -144,6 +148,7 @@ const ImgQuestion = (props) => {
           <img
             src={props.questionWord?.options[i].image}
             key={props.questionWord?.options[i].id}
+            alt=""
           ></img>
           <span className="optionText">
             {props.questionWord?.options[i].primary_explaination}
@@ -190,16 +195,16 @@ const ImgQuestion = (props) => {
   };
 
   useEffect(() => {
-    generateOptions(answerIndex);
-
+    generateOptions();
+    let refCurrent = optionsRef.current;
     return () => {
       //下一题的时候清除mask
       timers.forEach((timer) => clearTimeout(timer));
-      for (const key in optionsRef.current) {
-        if (optionsRef.current[key]) optionsRef.current[key].style = "";
+      for (const key in refCurrent) {
+        if (refCurrent[key]) refCurrent[key].style = "";
       }
     };
-  }, [props.questionWord]);
+  }, [props.questionWord, props.words.review_arr]);
 
   return (
     <Container>

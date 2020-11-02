@@ -4,16 +4,6 @@ import styled from "styled-components";
 import { Result, Button } from "antd";
 
 const Container = styled.div`
-  /* max-width: 90%;
-  min-height: 200px;
-  width: 800px;
-  margin: 0 auto;
-  background: white;
-  padding: 50px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px #c0c0c0;
-  position: relative; */
   .btn {
     background: #22ddb8;
     border: 1px solid #22ddb8;
